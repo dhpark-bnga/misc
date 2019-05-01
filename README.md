@@ -30,4 +30,7 @@ CHANGES:
 			KUBECONFIG=~/.kube/config
 		# delete temp config
 			rm -f 
-	
+
+MODIFY THIS REPO LATER:
+	k8s-deployment-worker	
+
