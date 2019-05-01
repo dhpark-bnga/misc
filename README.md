@@ -4,7 +4,7 @@ This is for FPPF-1521
 CHANGES: 
 
 	.travis.yml
-		branches: only: master > FPPF-1521	
+		branches: only: master > FPPF-1521	<<<<<<<<<<<<<<<< TRAVIS-CI
 		before_install: 
 			+  - curl -LO
 			+  - curl -o
@@ -31,6 +31,13 @@ CHANGES:
 		# delete temp config
 			rm -f 
 
+
+
 MODIFY THIS REPO LATER:
-	k8s-deployment-worker	
+
+	k8s-deployment-worker:
+		? disable sqs
+		? disable kubectl
+		? de-activate the pod
+
 
