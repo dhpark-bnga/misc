@@ -1,0 +1,56 @@
+name: CRON - Weekly geoip-dev version up
+
+on:
+  schedule:
+    - cron: '0 23 * * *'
+    # dev: - cron: '0 18 * * 1'
+    # stg: - cron: '10 18 * * 1'
+    # prod: - cron: '20 18 * * 1'
+    
+env:
+  ## ENV_ID: "TEST"
+  ## AWS_DEFAULT_REGION: "us-east-1"
+  ## GH_TOKEN: ${{ secrets.BNEA_GITHUB_ACCESS_TOKEN }}
+  ## # MS_TEAMS_WEBHOOK_URI: ${{ secrets.TEAMS_CI_CD }}
+  ## TEAMS_INFRA_INFO: ${{ secrets.TEAMS_INFRA_INFO }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Version Update
+      run: |
+        cur_dir=$(pwd)
+        TODAY=$(date +'%Y.%m.%d'); sed -Ei.bak "s/[0-9]+\.[0-9]+\.[0-9]+/$TODAY/" ${cur_dir}/geoip/version.txt
+        OUTPUT=$(cat ${cur_dir}/geoip/version.txt)
+        ## curl -H 'Content-Type: application/json' -d "{\"title\": \"Geoip IMG version up\", \"text\": \"`echo $OUTPUT`\"}" $TEAMS_INFRA_INFO
+        echo $OUTPUT
+
+    - name: Git commit
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Geoip version update
+
+    ## - name: Failure Notification
+    ##   uses: jdcargile/ms-teams-notification@v1.3
+    ##   if: ${{ failure() }}
+    ##   with:
+    ##     github-token: ${{ github.token }}
+    ##     ms-teams-webhook-uri: ${{ secrets.TEAMS_INFRA_INFO }}
+    ##     notification-summary: Failed - Geoip version up
+    ##     notification-color: ff0000
+
+    ## - name: Cancel Notification
+    ##   uses: jdcargile/ms-teams-notification@v1.3
+    ##   if: ${{ cancelled() }}
+    ##   with:
+    ##     github-token: ${{ github.token }}
+    ##     ms-teams-webhook-uri: ${{ secrets.TEAMS_INFRA_INFO }}
+    ##     notification-summary: Cancelled - Geoip version up
+    ##     notification-color: 0000ff
+
