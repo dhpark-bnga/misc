@@ -5,12 +5,12 @@ on:
     branches:
       - dev
   schedule:
-    - cron: '30 23 * * *'
+    - cron: '0 24 * * *'
     # dev: - cron: '0 18 * * 1'
     # stg: - cron: '10 18 * * 1'
     # prod: - cron: '20 18 * * 1'
     
-env:
+## env:
   ## ENV_ID: "TEST"
   ## AWS_DEFAULT_REGION: "us-east-1"
   ## GH_TOKEN: ${{ secrets.BNEA_GITHUB_ACCESS_TOKEN }}
