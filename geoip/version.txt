@@ -1,1 +1,1 @@
-geoip/v1.1.7-stg
+geoip/v2022.03.23-stg
