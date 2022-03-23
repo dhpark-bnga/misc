@@ -2,10 +2,7 @@ name: CRON - Weekly geoip-stg version up
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
-    # dev: - cron: '0 18 * * 1'
-    # stg: - cron: '10 18 * * 1'
-    # prod: - cron: '20 18 * * 1'
+    - cron: '10 20 * * 0'
     
 ## env:
   ## ENV_ID: "TEST"

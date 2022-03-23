@@ -3,8 +3,6 @@ name: CRON - Weekly geoip-dev image version up
 on:
   schedule:
     - cron: '0 20 * * 0'
-    # stg: - cron: '10 20 * * 0'
-    # prod: - cron: '20 20 * * 0'
 
 ## env:
   ## ENV_ID: "TEST"
