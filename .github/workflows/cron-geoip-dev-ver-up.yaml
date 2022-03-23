@@ -28,6 +28,7 @@ jobs:
 
     - name: Version Update
       run: |
+        ls -R
         cur_dir=$(pwd)
         echo $cur_dir; cat ${cur_dir}/geoip/version.txt
         echo "DOTDOT"; cat ../../geoip/version.txt
