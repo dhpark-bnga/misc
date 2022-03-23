@@ -29,8 +29,8 @@ jobs:
     - name: Version Update
       run: |
         cur_dir=$(pwd)
-        echo $cur_dir ${cur_dir}/geoip/version.txt
-        echo "DOTDOT" ../../geoip/version.txt
+        echo $cur_dir; cat ${cur_dir}/geoip/version.txt
+        echo "DOTDOT"; cat ../../geoip/version.txt
         
         TODAY=$(date +'%Y.%m.%d'); sed -i '' "s/[0-9]*\.[0-9]*\.[0-9]*/$TODAY/" ${cur_dir}/geoip/version.txt
         OUTPUT=$(cat ${cur_dir}/geoip/version.txt)
