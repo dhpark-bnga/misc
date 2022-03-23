@@ -33,19 +33,19 @@ jobs:
         
         echo $OUTPUT
 
-      - name: Commit changes
-        run: |
-          git config --local user.email "dhpark@bandainamcoent.com"
-          git config --local user.name "dhpark-bnga"
-          git add -A
-          git commit -m "Geoip IMG version up"
+    - name: Commit changes
+      run: |
+        git config --local user.email "dhpark@bandainamcoent.com"
+        git config --local user.name "dhpark-bnga"
+        git add -A
+        git commit -m "Geoip STG IMG version up"
 
-      - name: GitHub Push
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          branch: master
-          directory: "."
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: GitHub Push
+      uses: ad-m/github-push-action@v0.5.0
+      with:
+        branch: staging
+        directory: "."
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     ## - name: Failure Notification
     ##   uses: jdcargile/ms-teams-notification@v1.3
