@@ -1,4 +1,4 @@
-name: CRON - Weekly geoip-dev version up
+name: CRON - Weekly geoip-dev image version up
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
     # dev: - cron: '0 18 * * 1'
     # stg: - cron: '10 18 * * 1'
     # prod: - cron: '20 18 * * 1'
-    
+
 ## env:
   ## ENV_ID: "TEST"
   ## AWS_DEFAULT_REGION: "us-east-1"
@@ -30,22 +30,21 @@ jobs:
         # MAC: sed -i '' "s/[0-9]*\.[0-9]*\.[0-9]*/$TODAY/" ./geoip/version.txt
         OUTPUT=$(cat ./geoip/version.txt)
         ## curl -H 'Content-Type: application/json' -d "{\"title\": \"Geoip IMG version up\", \"text\": \"`echo $OUTPUT`\"}" $TEAMS_INFRA_INFO
-        
         echo $OUTPUT
 
-      - name: Commit changes
-        run: |
-          git config --local user.email "dhpark@bandainamcoent.com"
-          git config --local user.name "dhpark-bnga"
-          git add -A
-          git commit -m "Geoip IMG version up"
+    - name: Commit changes
+      run: |
+        git config --local user.email "dhpark@bandainamcoent.com"
+        git config --local user.name "dhpark-bnga"
+        git add -A
+        git commit -m "Geoip IMG version up"
 
-      - name: GitHub Push
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          branch: dev
-          directory: "."
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: GitHub Push
+      uses: ad-m/github-push-action@v0.5.0
+      with:
+        branch: dev
+        directory: "."
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     ## - name: Failure Notification
     ##   uses: jdcargile/ms-teams-notification@v1.3
