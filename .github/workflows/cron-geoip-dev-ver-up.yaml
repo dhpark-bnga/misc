@@ -51,4 +51,3 @@ jobs:
     ##     ms-teams-webhook-uri: ${{ secrets.TEAMS_INFRA_INFO }}
     ##     notification-summary: Cancelled - Geoip version up
     ##     notification-color: 0000ff
-
