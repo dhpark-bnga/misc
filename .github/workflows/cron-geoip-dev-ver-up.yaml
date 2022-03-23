@@ -17,14 +17,14 @@ on:
   ## # MS_TEAMS_WEBHOOK_URI: ${{ secrets.TEAMS_CI_CD }}
   ## TEAMS_INFRA_INFO: ${{ secrets.TEAMS_INFRA_INFO }}
 jobs:
-  build:
+  ver-update:
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@dev
       with:
-        ref: ${{ github.head_ref }}
+        fetch-depth: 1
 
     - name: Version Update
       run: |
@@ -33,11 +33,6 @@ jobs:
         OUTPUT=$(cat ${cur_dir}/geoip/version.txt)
         ## curl -H 'Content-Type: application/json' -d "{\"title\": \"Geoip IMG version up\", \"text\": \"`echo $OUTPUT`\"}" $TEAMS_INFRA_INFO
         echo $OUTPUT
-
-    - name: Git commit
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Geoip version update
 
     ## - name: Failure Notification
     ##   uses: jdcargile/ms-teams-notification@v1.3
