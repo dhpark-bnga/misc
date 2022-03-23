@@ -1,0 +1,66 @@
+name: CRON - Weekly geoip-stg version up
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+    # dev: - cron: '0 18 * * 1'
+    # stg: - cron: '10 18 * * 1'
+    # prod: - cron: '20 18 * * 1'
+    
+## env:
+  ## ENV_ID: "TEST"
+  ## AWS_DEFAULT_REGION: "us-east-1"
+  ## GH_TOKEN: ${{ secrets.BNEA_GITHUB_ACCESS_TOKEN }}
+  ## # MS_TEAMS_WEBHOOK_URI: ${{ secrets.TEAMS_CI_CD }}
+  ## TEAMS_INFRA_INFO: ${{ secrets.TEAMS_INFRA_INFO }}
+jobs:
+  ver-update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: staging
+
+    - name: Version Update
+      run: |
+        TODAY=$(date +'%Y.%m.%d')
+        sed -i "s/[0-9]*\.[0-9]*\.[0-9]*/$TODAY/" ./geoip/version.txt
+        # MAC: sed -i '' "s/[0-9]*\.[0-9]*\.[0-9]*/$TODAY/" ./geoip/version.txt
+        OUTPUT=$(cat ./geoip/version.txt)
+        ## curl -H 'Content-Type: application/json' -d "{\"title\": \"Geoip IMG version up\", \"text\": \"`echo $OUTPUT`\"}" $TEAMS_INFRA_INFO
+        
+        echo $OUTPUT
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "dhpark@bandainamcoent.com"
+          git config --local user.name "dhpark-bnga"
+          git add -A
+          git commit -m "Geoip IMG version up"
+
+      - name: GitHub Push
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          branch: master
+          directory: "."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    ## - name: Failure Notification
+    ##   uses: jdcargile/ms-teams-notification@v1.3
+    ##   if: ${{ failure() }}
+    ##   with:
+    ##     github-token: ${{ github.token }}
+    ##     ms-teams-webhook-uri: ${{ secrets.TEAMS_INFRA_INFO }}
+    ##     notification-summary: Failed - Geoip version up
+    ##     notification-color: ff0000
+
+    ## - name: Cancel Notification
+    ##   uses: jdcargile/ms-teams-notification@v1.3
+    ##   if: ${{ cancelled() }}
+    ##   with:
+    ##     github-token: ${{ github.token }}
+    ##     ms-teams-webhook-uri: ${{ secrets.TEAMS_INFRA_INFO }}
+    ##     notification-summary: Cancelled - Geoip version up
+    ##     notification-color: 0000ff
