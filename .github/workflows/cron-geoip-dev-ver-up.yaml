@@ -5,7 +5,7 @@ on:
     branches:
       - dev
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '* */3 * * *'
     # dev: - cron: '0 18 * * 1'
     # stg: - cron: '10 18 * * 1'
     # prod: - cron: '20 18 * * 1'
