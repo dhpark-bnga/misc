@@ -28,7 +28,7 @@ jobs:
 
     - name: Version Update
       run: |
-        cur_dir=$(pwd)
+        cur_dir=$(pwd) ; echo $cur_dir
         TODAY=$(date +'%Y.%m.%d'); sed -Ei.bak "s/[0-9]+\.[0-9]+\.[0-9]+/$TODAY/" ${cur_dir}/geoip/version.txt
         OUTPUT=$(cat ${cur_dir}/geoip/version.txt)
         ## curl -H 'Content-Type: application/json' -d "{\"title\": \"Geoip IMG version up\", \"text\": \"`echo $OUTPUT`\"}" $TEAMS_INFRA_INFO
