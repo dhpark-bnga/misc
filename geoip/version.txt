@@ -1,1 +1,1 @@
-geoip/v2022.04.03-stg
+geoip/v2022.04.10-stg
