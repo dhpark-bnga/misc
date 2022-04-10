@@ -1,1 +1,1 @@
-geoip/v2022.04.03-dev
+geoip/v2022.04.10-dev
